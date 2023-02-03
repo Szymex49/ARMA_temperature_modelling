@@ -1,1 +1,7 @@
-# ARMA_time_series_modelling
+# ARMA time series modelling
+
+### Authors
+Szymon Malec
+Tomasz Hałas
+
+### Opis
