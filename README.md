@@ -1,7 +1,7 @@
 # ARMA time series modelling
 
 ### Authors
-Szymon Malec
+Szymon Malec <br>
 Tomasz Hałas
 
 ### Opis

@@ -9,6 +9,7 @@ fontsize: 12pt
 
 \renewcommand{\figurename}{Wykres}
 \renewcommand{\tablename}{Tablica}
+\titlelabel{\thetitle.\quad}
 \raggedbottom
 
 ```{r setup, include=FALSE}
