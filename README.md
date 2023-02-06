@@ -4,4 +4,4 @@
 Szymon Malec <br>
 Tomasz Hałas
 
-### Opis
+### Description
