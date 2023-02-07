@@ -37,7 +37,7 @@ regression <- function(X, Y){
 
 \section{Wstęp}
 
-
+|       Celem niniejszej pracy jest wykorzystanie modelu ARMA do zbadanie danych opisujących średnią temperaturę w Warszawie w latach.
 
 
 \section{Opis danych}
