@@ -21,7 +21,7 @@ fontsize: 12pt
 
 \section{Wstęp}
 
-|       Celem niniejszej pracy jest wykorzystanie modelu ARMA do zbadania danych opisujących średnią temperaturę w Warszawie. Skorzystaliśmy z danych dostępnych pod adresem \footnote{https://academic.udayton.edu/kissock/http/Weather/default.htm}, pochodzące z amerykańskiego National Climatic Data Center. Strona zawiera średnie dobowe temperatury dla 157 miast amerykańskich i 167 międzynarodowych. Dane są aktualizowane na bieżąco i zawierają dane od 1 stycznia 1995 do chwili obecnej. Pogoda jest mierzona za pomocą stopni Fahrenheita. Dane pogodowe dla miasta Warszawy znadują się na wykresie \ref{fig:danePogodowe}.
+|       Celem niniejszej pracy jest wykorzystanie modelu ARMA do zbadania danych opisujących średnią dobową temperaturę w Warszawie. Skorzystaliśmy z danych\footnote{https://academic.udayton.edu/kissock/http/Weather/default.htm} pochodzących z amerykańskiego National Climatic Data Center. Strona zawiera średnie dobowe temperatury dla 324 miast na świecie. Dane są aktualizowane na bieżąco od 1 stycznia 1995 do chwili obecnej. Temperatura jest mierzona w stopniach Fahrenheita. Dane pogodowe dla miasta Warszawy znadują się na wykresie \ref{fig:danePogodowe}.
 
 \begin{figure}[H]
   \includegraphics{images/raw_data.pdf}
@@ -30,11 +30,11 @@ fontsize: 12pt
   \label{fig:danePogodowe}
 \end{figure}
 
-Na wykresie \ref{fig:danePogodowe} zauważalne są braki danych jakie występują w naszym zbiorze danych.
+
 
 \section{Opis danych}
 
-|       Ze względu na fakt, że posiadany przez nas zbiór danych jest bardzo obszerny oraz braku niektórych danych postanowiliśmy wziąść nasze dane do modelu z przedziału 22.06.2002 - 27.08.2007.  Wykres temperatur dla miasta Warszawa w tym okresie prezentuje się następująco \ref{fig:daneZakres}:
+|       Autorzy danych ustanowili konwencję, aby dla brakująych danych przypisać wartość -99 stopni Fahrenheita. Ze względu na fakt, że posiadany przez nas zbiór danych jest bardzo obszerny oraz braku niektórych danych, postanowiliśmy wybrać przedział \mbox{22.06.2002 -- 27.08.2007}.  Wykres temperatur dla miasta Warszawa w tym okresie prezentuje się następująco:
 
 
 \begin{figure}[H]
@@ -44,12 +44,6 @@ Na wykresie \ref{fig:danePogodowe} zauważalne są braki danych jakie występuj�
   \centering
   \label{fig:daneZakres}
 \end{figure}
-
-Dane opisujace pogode w mieście Warszawa charakteryzują się występowaniem okresowości. Położenie tego miasta w środowej Europie sprawia, że występują w nim cztery poru roku co widać na wykresie \ref{fig:daneZakres}. Dodatkowo zauważalna na wykresie jest wariancją, która spowodawana jest nagłymi zmiannami pogody. Na takich danych rozpoczeliśmy dalszą pracę.
-
-
-
-
 
 
 \section{Przygotowanie danych}
