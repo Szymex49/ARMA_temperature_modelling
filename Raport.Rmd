@@ -3,14 +3,15 @@ title: "Komputerowa analiza szeregów czasowych - raport 2"
 author: "Szymon Malec, Tomasz Hałas"
 output:
   pdf_document: 
-    extra_dependencies: ["polski", "mathtools", "amsthm", "amssymb", "icomma", "upgreek", "xfrac", "scrextend", "float", "tabularx", "hyperref", "caption", "enumitem"]
+    number_sections: true
+    extra_dependencies: ["polski", "mathtools", "amsthm", "amssymb", "icomma", "upgreek", "xfrac", "scrextend", "float", "tabularx", "hyperref", "caption", "enumitem", "titlesec"]
 fontsize: 12pt
 ---
 
 \renewcommand{\figurename}{Wykres}
 \renewcommand{\tablename}{Tablica}
-\titlelabel{\thetitle.\quad}
 \raggedbottom
+\titlelabel{ \thetitle.\quad}
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, eval = TRUE, fig.pos = "H", dev.args=list(encoding="CP1257.enc"))
@@ -37,10 +38,26 @@ regression <- function(X, Y){
 
 \section{Wstęp}
 
-|       Celem niniejszej pracy jest wykorzystanie modelu ARMA do zbadanie danych opisujących średnią temperaturę w Warszawie w latach.
+|       Celem niniejszej pracy jest wykorzystanie modelu ARMA do zbadania danych opisujących średnią temperaturę w Warszawie w latach.
+
 
 
 \section{Opis danych}
+
+
+
+
+\section{Przygotowanie danych}
+
+
+
+
+\section{Dopasowanie modelu ARMA}
+
+
+
+
+\section{Analiza szumu}
 
 
 
