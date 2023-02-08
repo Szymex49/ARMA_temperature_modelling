@@ -1,6 +1,6 @@
 ---
 title: "Komputerowa analiza szeregów czasowych - raport 2"
-author: "Szymon Malec 262276 , Tomasz Hałas 2546347"
+author: "Szymon Malec 262276 , Tomasz Hałas 254637"
 output:
   pdf_document: 
     number_sections: true
@@ -54,7 +54,7 @@ Dane opisujace pogode w mieście Warszawa charakteryzują się występowaniem ok
 
 \section{Przygotowanie danych}
 
-|       Na wykresie \ref{daneZakres} zauważyć można, że w danych występuje wyraźna okresowość. Nie jest to oczywiście zaskoczeniem, ponieważ dane opisują temperaturę, która w zimie przyjmuje mniejsze wartości niż w lecie. Z powodu występującej okresowości, stwierdzamy, że szereg z pewnością nie jest stacjonarny w słabym sensie, co potwierdzają także wykresy ACF i PACF (wykres \ref{raw_acf}). W szczególności wykres funkcji autokorelacji, która bardzo powoli zbiega do zera, wskazuje na brak stacjonarności.
+|       Na wykresie \ref{fig:daneZakres} zauważyć można, że w danych występuje wyraźna okresowość. Nie jest to oczywiście zaskoczeniem, ponieważ dane opisują temperaturę, która w zimie przyjmuje mniejsze wartości niż w lecie. Z powodu występującej okresowości, stwierdzamy, że szereg z pewnością nie jest stacjonarny w słabym sensie, co potwierdzają także wykresy ACF i PACF (wykres \ref{raw_acf}). W szczególności wykres funkcji autokorelacji, która bardzo powoli zbiega do zera, wskazuje na brak stacjonarności.
 
 \begin{figure}[H]
 		\centering
@@ -100,16 +100,36 @@ gdzie $\{Z_i\}_i \sim WN(0, \sigma^2)$ jest białym szumem. W pierwszej kolejno�
 $$
   \tilde{X}_t - \varphi_1 \tilde{X}_{t-1} - \varphi_2 \tilde{X}_{t-2} - \varphi_3 \tilde{X}_{t-3} = Z_t + \theta_1 Z_{t-1} + \theta_2 Z_{t-2} + \theta_3 Z_{t-3} + \theta_4 Z_{t-4}.
 $$
-Aby wyestymować współczynniki $\varphi_{1, 2, 3}$ i $\theta_{1, 2, 3, 4}$ oraz $\sigma^2$, wykorzystamy pakiet Stats dostępny w języku R. Obliczone wartości parametrów widoczne są w tabeli. Do ich obliczenia wykorzystane zostały estymatory wyznaczone metodą największej wiarygodności.
+Aby wyestymować współczynniki $\varphi_{1, 2, 3}$ i $\theta_{1, 2, 3, 4}$ oraz $\sigma^2$, wykorzystamy pakiet Stats dostępny w języku R. Obliczone wartości parametrów widoczne są w tabeli \ref{tab:coefs}. Do ich obliczenia wykorzystane zostały estymatory wyznaczone metodą największej wiarygodności.
 
-|       Aby sprawdzić, czy model został dobrze dopasowany, przeprowadzimy symulację Monte Carlo w celu wyznaczenia przedziałów ufności dla funkcji ACF i PACF naszego modelu. Generujemy 10 000 trajektorii procesu ARMA(3, 4) z wyznaczonymi współczynnikami i dla każdej trajektorii obliczamy ACF i PACF. Natępnie, dla każdego przesunięcia $h$, wyznaczamy kwantyle z próby (rzędu $\frac{\alpha}{2}$ i $1 - \frac{\alpha}{2}$). W ten sposób dla każdego $h$ otrzymujemy przedział ufności.
+\begin{table}[H]
+		\centering
+		\begin{tabular}{ |c|c| } 
+			\hline
+			Współczynnik & Wartość \\\hline
+			$\hat{\varphi}_1$ & 0.1037 \\\hline
+			$\hat{\varphi}_2$ & 0.0498 \\\hline
+			$\hat{\varphi}_3$ & 0.1979 \\\hline
+			$\hat{\theta}_1$ \vphantom{$1^{1^{1^1}}$} & -0.0583 \\\hline
+			$\hat{\theta}_2$ \vphantom{$1^{1^{1^1}}$} & -0.2693 \\\hline
+			$\hat{\theta}_3$ \vphantom{$1^{1^{1^1}}$} & -0.3274 \\\hline
+			$\hat{\theta}_4$ \vphantom{$1^{1^{1^1}}$} & -0.0691 \\\hline
+			$\hat{\sigma}^2$ \vphantom{$1^{1^{1^1}}$} & 16.5 \\\hline
+		\end{tabular}
+		\caption{Wartości współczynników badanego modelu ARMA(3, 4) wyznaczone za pomocą estymatorów największej wiarygodności.}
+    \label{tab:coefs}
+\end{table}
+
+|       Aby sprawdzić, czy model został dobrze dopasowany, przeprowadzimy symulację Monte Carlo w celu wyznaczenia przedziałów ufności dla funkcji ACF i PACF naszego modelu. Generujemy 10 000 trajektorii procesu ARMA(3, 4) z wyznaczonymi współczynnikami i dla każdej trajektorii obliczamy ACF i PACF. Natępnie, dla każdego przesunięcia $h$, wyznaczamy kwantyle próbkowe (rzędu $\frac{\alpha}{2}$ i $1 - \frac{\alpha}{2}$). W ten sposób dla każdego $h$ otrzymujemy przedział ufności na poziomie ufności $1 - \alpha$.
 
 \begin{figure}[H]
 		\centering
 		\includegraphics[width=\columnwidth]{images/conf_intervals.pdf}
 		\caption{Wykresy ACF i PACF dla szeregu $\tilde{X}_t$ wraz z przedziałami ufności na poziomie ufności $1 - \alpha = 0.95$.}
-    \label{conf_intervals}
+    \label{fig:conf_intervals}
 \end{figure}
+
+Jak możemy zauważyć na wykresie \ref{fig:conf_intervals}, wartości ACF i PACF dla naszych danych mieszczą się w wyznaczonych przedziałach. Zatem możemy stwierdzić, że model został dobrany prawidłowo.
 
 
 
