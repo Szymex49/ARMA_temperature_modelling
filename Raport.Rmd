@@ -49,6 +49,13 @@ regression <- function(X, Y){
 
 \section{Przygotowanie danych}
 
+|       aaaaaa
+
+\begin{figure}[H]
+		\centering
+		\includegraphics[width=\columnwidth]{images/raw_acf.pdf}
+		\caption{Wykres ACF.}
+\end{figure}
 
 
 
