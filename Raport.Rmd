@@ -49,13 +49,35 @@ regression <- function(X, Y){
 
 \section{Przygotowanie danych}
 
-|       aaaaaa
+|       Na wykresie 1 zauważyć można, że w danych występuje wyraźna okresowość. Nie jest to oczywiście zaskoczeniem, ponieważ dane opisują temperaturę, która w zimie przyjmuje mniejsze wartości niż w lecie. Z powodu występującej okresowości, stwierdzamy, że szereg z pewnością nie jest stacjonarny w słabym sensie, co potwierdzają także wykresy ACF i PACF (wykres \ref{raw_acf}). W szczególności wykres funcji autokorelacji, która bardzo powoli zbiega do zera, wskazuje na brak stacjonarności.
 
 \begin{figure}[H]
 		\centering
 		\includegraphics[width=\columnwidth]{images/raw_acf.pdf}
-		\caption{Wykres ACF.}
+		\caption{Wykresy funkcji autokorelacji (ACF) i autokorelacji cząstkowej (PACF) dla surowych danych w zależności od przesunięcia $h$.}
+    \label{raw_acf}
 \end{figure}
+
+|       Oznaczmy badany szereg jako $X_t, \ t \in \{1, 2, \dots, 1893\}$. Aby uzyskać stacjonarność, skorzystamy z metody różnicowania. Definiujemy
+$$
+  \tilde{X}_t = X_{t+1} - X_t, \ t \in \{1, 2, \dots, 1892\}.
+$$
+
+\begin{figure}[H]
+		\centering
+		\includegraphics[width=350pt]{images/diff_temp.pdf}
+		\caption{Dane po zastosowaniu metody różnicowania.}
+    \label{diff_temp}
+\end{figure}
+
+\begin{figure}[H]
+		\centering
+		\includegraphics[width=\columnwidth]{images/diff_acf.pdf}
+		\caption{Wykresy funkcji autokorelacji (ACF) i autokorelacji cząstkowej (PACF) dla danych po zastosowaniu metody różnicowania w zależności od przesunięcia $h$.}
+    \label{diff_acf}
+\end{figure}
+
+
 
 
 
