@@ -1,6 +1,6 @@
 ---
 title: "Komputerowa analiza szeregów czasowych - raport 2"
-author: "Szymon Malec, Tomasz Hałas"
+author: "Szymon Malec 262276 , Tomasz Hałas 2546347"
 output:
   pdf_document: 
     number_sections: true
@@ -21,18 +21,36 @@ fontsize: 12pt
 
 \section{Wstęp}
 
-|       Celem niniejszej pracy jest wykorzystanie modelu ARMA do zbadania danych opisujących średnią temperaturę w Warszawie w latach.
+|       Celem niniejszej pracy jest wykorzystanie modelu ARMA do zbadania danych opisujących średnią temperaturę w Warszawie w latach. Skorzystaliśmy z danych dostępnych pod adresem \footnote{https://academic.udayton.edu/kissock/http/Weather/default.htm}, pochodzące z amerykańskiego National Climatic Data Center Strona zawiera pliki średnich temperatur dobowych dla 157 miast amerykańskich i 167 międzynarodowych. Pliki są aktualizowane na bieżąco i zawierają dane od 1 stycznia 1995 do chwili obecnej. Pogoda jest mierzona za pomcoą stopni Fahrenheita. Dane pogodowe dla miasta Warszawy znadują się na wykresie \ref{fig:danePogodowe}.
 
+\begin{figure}[H]
+  \includegraphics{images/raw_data.pdf}
+    \caption{Wykresy temperatury dla miasta Warszawa}
+  \centering
+  \label{fig:danePogodowe}
+\end{figure}
 
+Na wykresie \ref{fig:danePogodowe} zauważalne są braki danych jakie występują w naszym zbiorze danych.
 
 \section{Opis danych}
 
+|       Ze względu na fakt, że posiadany przez nas zbiór danych jest bardzo obszerny oraz braku niektórych danych postanowiliśmy wziąść nasze dane do modelu z przedziału (PRZEDZIAŁ). Wykres temperatur dla miasta Warszawa w tym orkesie prezentuje się następująco \ref{fig:daneZakres}:
 
+
+\begin{figure}[H]
+
+  \includegraphics{images/range_data.pdf}
+  \caption{Wykresy temperatury dla miasta Warszawa w latach >>>>>.}
+  \centering
+  \label{fig:daneZakres}
+\end{figure}
+
+Nasze dane opisujace pogode w mieście Warszawa charakteryzują się dużą występowanień okresowości. Położenie tego miasta w środowej europie sprawia, że występują w nim cztery poru roku co widać na wykresie \ref{fig:daneZakres}. Dodatkowo nasze dane występuje wariancją, która spowodawana jest zmiannami nagłymi zmiannami pogody. Na takich danych rozpoczeliśmy dalszą prace.
 
 
 \section{Przygotowanie danych}
 
-|       Na wykresie 1 zauważyć można, że w danych występuje wyraźna okresowość. Nie jest to oczywiście zaskoczeniem, ponieważ dane opisują temperaturę, która w zimie przyjmuje mniejsze wartości niż w lecie. Z powodu występującej okresowości, stwierdzamy, że szereg z pewnością nie jest stacjonarny w słabym sensie, co potwierdzają także wykresy ACF i PACF (wykres \ref{raw_acf}). W szczególności wykres funcji autokorelacji, która bardzo powoli zbiega do zera, wskazuje na brak stacjonarności.
+|       Na wykresie \label{fig:daneZakres} zauważyć można, że w danych występuje wyraźna okresowość. Nie jest to oczywiście zaskoczeniem, ponieważ dane opisują temperaturę, która w zimie przyjmuje mniejsze wartości niż w lecie. Z powodu występującej okresowości, stwierdzamy, że szereg z pewnością nie jest stacjonarny w słabym sensie, co potwierdzają także wykresy ACF i PACF (wykres \ref{raw_acf}). W szczególności wykres funcji autokorelacji, która bardzo powoli zbiega do zera, wskazuje na brak stacjonarności.
 
 \begin{figure}[H]
 		\centering
@@ -89,7 +107,31 @@ gdzie $\{Z_i\}_i \sim WN(0, \sigma^2)$ jest białym szumem.
 
 \section{Analiza szumu}
 
+Analiza szumu w modelu ARMA polega na ocenie jakości modelu poprzez określenie stopnia, w jakim jego prognozy odpowiadają rzeczywistym danym. W ARMA, szum jest reprezentowany przez błąd prognozowania, który jest różnicą między prognozowanymi wartościami a rzeczywistymi wartościami. Aby ocenić jakość modelu, spojrzymy na:
 
+\begin{itemize}
+  \item założenie dot. średniej (wykres wartości resztowych)
+  \item założenie dot. wariancji (wykres wartości resztowych)
+  \item założenie dot. niezależności (wykres ACF/PACF dla wartości resztowych)
+  \item założenie dot. normalności rozkładu (dystrybuanta / gęstość / test KS).
+\end{itemize}
+
+Zaczynając od wykresu wartości resztowych:
+\begin{figure}[H]
+		\centering
+		\includegraphics[width=\columnwidth]{images/res_data.pdf}
+		\caption{Wykres wartości resztowych}
+    \label{rest_data}
+\end{figure}
+
+Widzimy, że na wykresie \ref{rest_data} nasze wartości oscylują wokół 0. Pojawia się tam też wariancja, ale jest ona miare umiarkowana. Nie występują na nim dość znaczące wartości odstające. Chcąc przebadać wariancje szumu wykonaliśmy wykres wariancji cząstkowej \ref{var_rest_data}. Wariancja cząstkowa to wartość średnia kwadratów różnicy między prognozowanymi wartościami a rzeczywistymi wartościami danych. Im mniejsza wariancja cząstkowa, tym lepsza jest prognoza modelu i tym mniejsze są błędy prognozowania.
+
+\begin{figure}[H]
+		\centering
+		\includegraphics[width=\columnwidth]{images/res_data.pdf}
+		\caption{wykres wariancji cząstkowej dla $k=200$}
+    \label{var_rest_data}
+\end{figure}
 
 
 \section{Podsumowanie}
