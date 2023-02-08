@@ -54,7 +54,7 @@ Dane opisujace pogode w mieście Warszawa charakteryzują się występowaniem ok
 
 \section{Przygotowanie danych}
 
-|       Na wykresie \ref{fig:daneZakres} zauważyć można, że w danych występuje wyraźna okresowość. Nie jest to oczywiście zaskoczeniem, ponieważ dane opisują temperaturę, która w zimie przyjmuje mniejsze wartości niż w lecie. Z powodu występującej okresowości, stwierdzamy, że szereg z pewnością nie jest stacjonarny w słabym sensie, co potwierdzają także wykresy ACF i PACF (wykres \ref{raw_acf}). W szczególności wykres funkcji autokorelacji, która bardzo powoli zbiega do zera, wskazuje na brak stacjonarności.
+|       Na wykresie \ref{fig:daneZakres} zauważyć można, że w danych występuje wyraźna okresowość. Nie jest to oczywiście zaskoczeniem, ponieważ dane opisują temperaturę, która w zimie przyjmuje mniejsze wartości niż w lecie. Z powodu występującej okresowości, stwierdzamy, że szereg z pewnością nie jest stacjonarny, co potwierdzają także wykresy ACF i PACF (wykres \ref{raw_acf}). W szczególności wykres funkcji autokorelacji, która bardzo powoli zbiega do zera, wskazuje na brak stacjonarności.
 
 \begin{figure}[H]
 		\centering
@@ -67,7 +67,7 @@ Dane opisujace pogode w mieście Warszawa charakteryzują się występowaniem ok
 $$
   \tilde{X}_t = X_{t+1} - X_t, \ \ \ t \in \{1, 2, \dots, 1892\}.
 $$
-Na wykresie \ref{diff_temp} zobaczyć można, że szereg $\tilde{X}_t$ oscyluje wokół zera, a jego wariancja wydaje się być stabilna.
+Na wykresie \ref{diff_temp} zobaczyć można, że szereg $\{\tilde{X}_t\}$ oscyluje wokół zera, a jego wariancja wydaje się być stabilna.
 
 \begin{figure}[H]
 		\centering
@@ -76,7 +76,7 @@ Na wykresie \ref{diff_temp} zobaczyć można, że szereg $\tilde{X}_t$ oscyluje 
     \label{diff_temp}
 \end{figure}
 
-Dodatkowo wykresy ACF i PACF (wykres \ref{diff_acf}) nie dają podstaw, by przypuszczać że, szereg nie jest stacjonarny. Możemy zatem przejść do dopasowania modelu ARMA do szeregu $\{\tilde{x}\}$.
+Dodatkowo wykresy ACF i PACF (wykres \ref{diff_acf}) nie dają podstaw, by przypuszczać że, szereg nie jest stacjonarny. Sugerują one jednak, że dane są między sobą zależne (całkiem wysokie wartości korelacji dla małych $h$). Do zbadania tych zależności wykorzystamy model ARMA.
 
 \begin{figure}[H]
 		\centering
@@ -92,11 +92,11 @@ Dodatkowo wykresy ACF i PACF (wykres \ref{diff_acf}) nie dają podstaw, by przyp
 
 \section{Dopasowanie modelu ARMA}
 
-|       Rozważmy podstawowy model ARMA($p$, $q$)
+|       Rozważmy ogólny model ARMA($p$, $q$):
 $$
   \tilde{X}_t - \varphi_1 \tilde{X}_{t-1} - ... - \varphi_p \tilde{X}_{t-p} = Z_t + \theta_1 Z_{t-1} + ... + \theta_q Z_{t-q},
 $$
-gdzie $\{Z_i\}_i \sim WN(0, \sigma^2)$ jest białym szumem. W pierwszej kolejności musimy dobrać odpowiedni rząd modelu tzn. takie $p$ i $q$, dla których model będzie najlepiej dopasowany. W tym celu skorzystamy z kryterium informacyjnego AIC (Akaike information criterion). Im mniejsza wartość statystyki, tym lepiej dopasowany jest model. Aby wyłonić najbardziej optymalne $p$ i $q$, obliczamy statystykę AIC dla wszystkich kombinacji $p \in \{1, 2, ..., 8\}$ oraz $q \in \{1, 2, ..., 8\}$. Dla naszych danych, najmniejszą wartość statystyka przyjęła dla $p = 3$ i $q = 4$. Możemy zatem uprościć model do postaci ARMA(3, 4), tj.
+gdzie $\{Z_i\}_i \sim WN(0, \sigma^2)$ jest białym szumem. W pierwszej kolejności musimy dobrać odpowiedni rząd modelu tzn. takie $p$ i $q$, dla których model będzie najlepiej dopasowany do danych. W tym celu skorzystamy z kryterium informacyjnego AIC (Akaike information criterion), które wskazuje jak dobrze model jest dopasowany. Im mniejsza wartość statystyki AIC, tym lepiej dopasowany jest model. Aby wyłonić najbardziej optymalne $p$ i $q$, obliczamy statystykę AIC dla wszystkich kombinacji $p \in \{1, 2, ..., 8\}$ oraz $q \in \{1, 2, ..., 8\}$. Dla naszych danych, najmniejszą wartość statystyka przyjęła dla $p = 3$ i $q = 4$. Możemy zatem uprościć model do postaci ARMA(3, 4), tj.
 $$
   \tilde{X}_t - \varphi_1 \tilde{X}_{t-1} - \varphi_2 \tilde{X}_{t-2} - \varphi_3 \tilde{X}_{t-3} = Z_t + \theta_1 Z_{t-1} + \theta_2 Z_{t-2} + \theta_3 Z_{t-3} + \theta_4 Z_{t-4}.
 $$
@@ -137,6 +137,8 @@ Jak możemy zauważyć na wykresie \ref{fig:conf_intervals}, wartości ACF i PAC
 
 
 \section{Analiza szumu}
+
+|       Aby zweryfikować, czy dobrany model ARMA jest w pełni poprawny, musimy jeszcze sprawdzić, czy dane spełniają wszystkie założenia modelu. Mianowicie sprawdzimy, czy residua (realizacje zmiennych losowych $\{Z_t\}$) mają cechy białego szumu.
 
 Analiza szumu w modelu ARMA polega na ocenie jakości modelu poprzez określenie stopnia, w jakim jego prognozy odpowiadają rzeczywistym danym. W ARMA, szum jest reprezentowany przez błąd prognozowania, który jest różnicą między prognozowanymi wartościami a rzeczywistymi wartościami. Aby ocenić jakość modelu, spojrzymy na:
 
