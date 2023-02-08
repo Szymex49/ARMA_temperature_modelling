@@ -87,7 +87,11 @@ Dodatkowo wykresy ACF i PACF (wykres \ref{diff_acf}) nie dają podstaw, by przyp
 
 \section{Dopasowanie modelu ARMA}
 
-|       Ssssss
+|       Model
+$$
+  \tilde{X}_t - \varphi_1 \tilde{X}_{t-1} - ... - \varphi_p \tilde{X}_{t-p} = Z_t + \theta_1 Z_{t-1} + ... + \theta_q Z_{t-q},
+$$
+gdzie $\{Z_i\}_i \sim WN(0, \sigma^2)$ jest białym szumem.
 
 \begin{figure}[H]
 		\centering
