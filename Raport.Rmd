@@ -13,25 +13,8 @@ fontsize: 12pt
 \raggedbottom
 \titlelabel{ \thetitle.\quad}
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, eval = TRUE, fig.pos = "H", dev.args=list(encoding="CP1257.enc"))
-```
-
-```{r}
-library(ggplot2)
-library(dplyr)
-library(knitr)
 
 
-regression <- function(X, Y){
-    r <- cor(X, Y, use="pairwise.complete.obs")
-    Sx <- sd(X)
-    Sy <- sd(Y)
-    a <- r * Sy / Sx
-    b <- mean(Y) - a * mean(X)
-    return(c(a, b))
-}
-```
 
 
 
@@ -76,10 +59,11 @@ Nasze dane opisujace pogode w mieście Warszawa charakteryzują się dużą wyst
     \label{raw_acf}
 \end{figure}
 
-|       Oznaczmy badany szereg jako $X_t, \ t \in \{1, 2, \dots, 1893\}$. Aby uzyskać stacjonarność, skorzystamy z metody różnicowania. Definiujemy
+|       Oznaczmy badany szereg jako $X_t, \ t \in \{1, 2, \dots, 1893\}$. Aby uzyskać stacjonarność, skorzystamy z metody różnicowania. Definiujemy nowy szereg
 $$
   \tilde{X}_t = X_{t+1} - X_t, \ t \in \{1, 2, \dots, 1892\}.
 $$
+Na wykresie \ref{diff_temp} zobaczyć można, że szereg $\tilde{X}_t$ oscyluje wokół zera, a jego wariancja wydaje się być stabilna.
 
 \begin{figure}[H]
 		\centering
@@ -87,6 +71,8 @@ $$
 		\caption{Dane po zastosowaniu metody różnicowania.}
     \label{diff_temp}
 \end{figure}
+
+Dodatkowo wykresy ACF i PACF (wykres \ref{diff_acf}) nie dają podstaw, by przypuszczać że, szereg nie jest stacjonarny.
 
 \begin{figure}[H]
 		\centering
@@ -100,6 +86,17 @@ $$
 
 
 \section{Dopasowanie modelu ARMA}
+
+|       Ssssss
+
+\begin{figure}[H]
+		\centering
+		\includegraphics[width=\columnwidth]{images/conf_intervals.pdf}
+		\caption{Wykresy ACF i PACF dla szeregu $\tilde{X}_t$ wraz z przedziałami ufności na poziomie ufności $1 - \alpha = 0.95$.}
+    \label{conf_intervals}
+\end{figure}
+
+
 
 
 
