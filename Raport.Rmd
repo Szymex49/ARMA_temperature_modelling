@@ -188,5 +188,5 @@ Następnie analizie poddaliśmy niezależność. Na podstawie wykresów autokore
 Na podstawie wykresów \ref{den_data} i \ref{dys_data} wnioskujemy, że residua najprawdopodobniej mają rozkład normalny, ponieważ dystrybuanty wyraźnie się pokrywają, z kolei kształt histogramu przypomina gęstość teoretyczną. W celu weryfikacji hipotezy dotyczącej rozkładu, wykonaliśmy test Kołmogorowa-Smirnowa. Otrzymana $p$-wartość wynosi 0.2905, co nie daje nam powodów do odrzucenia hipotezy.
 
 \section{Podsumowanie}
-
-  Na podstawie analizy szumów widzimy, że nasz model został dobrze dopasowany do danych wejściowych. 
+  
+|       Na podstawie wykresu \ref{fig:conf_intervals} widzimy, że nasz model został poprawnie dopasowany do danych. Dodatkowo potwierdza to przeprowadzona analiza szumu. Udało nam się pokazać, że jest on z rozkładu normalnego, co pozwola na symulację badanego procesu ARMA, związku z czym także na przeprowadzenie predykcji. Jednak należy mieć na uwadze, że w naszych danych pojawia się zmienna wariancja, co może mieć negatywny wpływ na wyniki predykcji, dlatego należałoby rozważyć wykorzystanie metody Boxa-Coxa w celu stabilizacji wariancji.  Poza tym cały model jest poprawnie skonstruowany. 
