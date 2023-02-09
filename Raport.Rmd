@@ -21,11 +21,11 @@ fontsize: 12pt
 
 \section{Wstęp}
 
-|       Celem niniejszej pracy jest wykorzystanie modelu ARMA do zbadania danych opisujących średnią dobową temperaturę w Warszawie. Skorzystaliśmy z danych\footnote{https://academic.udayton.edu/kissock/http/Weather/default.htm} pochodzących z amerykańskiego National Climatic Data Center. Strona zawiera średnie dobowe temperatury dla 324 miast na świecie. Dane są aktualizowane na bieżąco od 1 stycznia 1995 do chwili obecnej. Temperatura jest mierzona w stopniach Fahrenheita. Dane pogodowe dla miasta Warszawy znadują się na wykresie \ref{fig:danePogodowe}.
+|       Celem niniejszej pracy jest wykorzystanie modelu ARMA do zbadania danych opisujących średnią dobową temperaturę w Warszawie. Skorzystaliśmy z danych\footnote{https://academic.udayton.edu/kissock/http/Weather/default.htm} pochodzących z amerykańskiego National Climatic Data Center. Strona zawiera średnie dobowe temperatury dla 324 miast na świecie. Dane są aktualizowane na bieżąco od 1 stycznia 1995 r. do chwili obecnej. Temperatura jest mierzona w stopniach Fahrenheita. Dane pogodowe dla miasta Warszawy znadują się na wykresie \ref{fig:danePogodowe}.
 
 \begin{figure}[H]
   \includegraphics{images/raw_data.pdf}
-    \caption{Wykresy temperatury dla miasta Warszawa}
+    \caption{Średnia dobowa temperatura w latch 1995-2020 w mieście Warszawa.}
   \centering
   \label{fig:danePogodowe}
 \end{figure}
@@ -34,13 +34,11 @@ fontsize: 12pt
 
 \section{Opis danych}
 
-|       Autorzy danych ustanowili konwencję, aby dla brakująych danych przypisać wartość -99 stopni Fahrenheita. Ze względu na fakt, że posiadany przez nas zbiór danych jest bardzo obszerny oraz braku niektórych danych, postanowiliśmy wybrać przedział \mbox{22.06.2002 -- 27.08.2007}.  Wykres temperatur dla miasta Warszawa w tym okresie prezentuje się następująco:
-
+|       Autorzy danych ustanowili konwencję, aby dla brakująych danych przypisać wartość -99 stopni Fahrenheita. Ze względu na duży rozmiar danych oraz występowanie brakujących wartości, do analizy postanowiliśmy wybrać przedział czasowy \mbox{22.06.2002 -- 27.08.2007}, w którym nie występują żadne braki.  Wykres temperatur dla miasta Warszawa w tym okresie widoczny jest poniżej.
 
 \begin{figure}[H]
-
   \includegraphics{images/range_data.pdf}
-  \caption{Wykresy temperatury dla miasta Warszawa w latach 2002-2007.}
+  \caption{Średnia dobowa temperatura w latch 2002-2007 w mieście Warszawa.}
   \centering
   \label{fig:daneZakres}
 \end{figure}
@@ -90,7 +88,7 @@ Dodatkowo wykresy ACF i PACF (wykres \ref{diff_acf}) nie dają podstaw, by przyp
 $$
   \tilde{X}_t - \varphi_1 \tilde{X}_{t-1} - ... - \varphi_p \tilde{X}_{t-p} = Z_t + \theta_1 Z_{t-1} + ... + \theta_q Z_{t-q},
 $$
-gdzie $\{Z_i\}_i \sim WN(0, \sigma^2)$ jest białym szumem. W pierwszej kolejności musimy dobrać odpowiedni rząd modelu tzn. takie $p$ i $q$, dla których model będzie najlepiej dopasowany do danych. W tym celu skorzystamy z kryterium informacyjnego AIC (Akaike information criterion), które wskazuje jak dobrze model jest dopasowany. Im mniejsza wartość statystyki AIC, tym lepiej dopasowany jest model. Aby wyłonić najbardziej optymalne $p$ i $q$, obliczamy statystykę AIC dla wszystkich kombinacji $p \in \{1, 2, ..., 8\}$ oraz $q \in \{1, 2, ..., 8\}$. Dla naszych danych, najmniejszą wartość statystyka przyjęła dla $p = 3$ i $q = 4$. Możemy zatem uprościć model do postaci ARMA(3, 4), tj.
+gdzie $\{Z_t\} \sim WN(0, \sigma^2)$ jest białym szumem. W pierwszej kolejności musimy dobrać odpowiedni rząd modelu tzn. takie $p$ i $q$, dla których model będzie najlepiej dopasowany do danych. W tym celu skorzystamy z kryterium informacyjnego AIC (Akaike information criterion), które wskazuje jak dobrze model jest dopasowany. Im mniejsza wartość statystyki AIC, tym lepiej jest on dopasowany. Aby wyłonić najbardziej optymalne $p$ i $q$, obliczamy statystykę AIC dla wszystkich kombinacji $p \in \{1, 2, ..., 8\}$ oraz $q \in \{1, 2, ..., 8\}$. Dla naszych danych, najmniejszą wartość statystyka przyjęła dla $p = 3$ i $q = 4$. Możemy zatem uprościć model do postaci ARMA(3, 4), tj.
 $$
   \tilde{X}_t - \varphi_1 \tilde{X}_{t-1} - \varphi_2 \tilde{X}_{t-2} - \varphi_3 \tilde{X}_{t-3} = Z_t + \theta_1 Z_{t-1} + \theta_2 Z_{t-2} + \theta_3 Z_{t-3} + \theta_4 Z_{t-4}.
 $$
@@ -132,66 +130,62 @@ Jak możemy zauważyć na wykresie \ref{fig:conf_intervals}, wartości ACF i PAC
 
 \section{Analiza szumu}
 
-|       Aby zweryfikować, czy dobrany model ARMA jest w pełni poprawny, musimy jeszcze sprawdzić, czy dane spełniają wszystkie założenia modelu. Mianowicie sprawdzimy, czy residua (realizacje zmiennych losowych $\{Z_t\}$) mają cechy białego szumu.
-
-Analiza szumu w modelu ARMA polega na ocenie jakości modelu poprzez określenie stopnia, w jakim jego prognozy odpowiadają rzeczywistym danym. W ARMA, szum jest reprezentowany przez błąd prognozowania, który jest różnicą między prognozowanymi wartościami a rzeczywistymi wartościami. Aby ocenić jakość modelu, spojrzymy na:
+|       Aby zweryfikować, czy dobrany model ARMA jest w pełni poprawny, musimy jeszcze sprawdzić, czy dane spełniają wszystkie założenia modelu. Mianowicie sprawdzimy, czy residua (realizacje zmiennych losowych $\{Z_t\}$) spełniają założenia dotyczące białego szumu:
 
 \begin{itemize}
-  \item założenie dot. średniej (wykres wartości resztowych)
-  \item założenie dot. wariancji (wykres wartości resztowych)
-  \item założenie dot. niezależności (wykres ACF/PACF dla wartości resztowych)
-  \item założenie dot. normalności rozkładu (dystrybuanta / gęstość / test KS).
+  \item stała średnia równa 0
+  \item stała i ograniczona wariancja
+  \item niezależność
 \end{itemize}
 
-Zaczynając od wykresu wartości resztowych:
 \begin{figure}[H]
 		\centering
 		\includegraphics[width=\columnwidth]{images/res_data.pdf}
-		\caption{Wykres wartości resztowych}
+		\caption{Wykres wartości resztowych (residuów).}
     \label{rest_data}
 \end{figure}
 
-Widzimy, że na wykresie \ref{rest_data} nasze wartości oscylują wokół 0. Pojawia się tam też wariancja, ale jest ona w miare umiarkowana. Nie występują na nim dość znaczące wartości odstające. Chcąc przebadać wariancje szumu wykonaliśmy wykres wariancji cząstkowej \ref{var_rest_data}. Im mniejsze wahania wariancji cząstkowej, tym lepsza jest prognoza modelu i tym mniejsze są błędy prognozowania.
+Widzimy, że na wykresie \ref{rest_data} nasze wartości oscylują wokół 0, z czego wnioskujemy, że średnia utrzymuje się na poziomie 0. Wśród residuów nie widać znaczących wartości odstających, więc wariancja jest raczej ograniczona. Aby odpowiedzieć na pytanie, czy wariancja jest stała, skorzystamy z wariancji cząstkowej
+$$
+  S_t^2 = \frac{1}{h-1} \sum\limits_{i=t}^{t+h-1} (z_i - \bar{z})^2,
+$$
+gdzie $\{z_i\}$ oznaczają residua, a $h$ jest długością przedziału, z jakiego wyliczana jest wariancja.
 
 \begin{figure}[H]
 		\centering
 		\includegraphics[width=\columnwidth]{images/var_res_data.pdf}
-		\caption{Wykres wariancji cząstkowej dla $k=200$}
+		\caption{Wykres wariancji cząstkowej dla $h=200$.}
     \label{var_rest_data}
 \end{figure}
 
-Widzimy, że na wykresie \ref{var_rest_data} występuje okresowość, co jest charakterystycznym zjawiskiem dla danych pogodowych oraz pojawia się oscylująca wariancja. W takiej sytuacji należałoby się zastanowić nad użyciem metody Boxa-Coxa w celu normalizacji wariancji.
-
-Następnie analizie poddaliśmy niezależności:
+Na wykresie \ref{var_rest_data} wyraźnie dostrzegalne jest okresowe zachowanie wariancji. Co więcej, zachowanie to przypomina okresowość pierwotnych danych. Porównując wykresy \ref{fig:daneZakres} i \ref{var_rest_data} dostrzegamy, że w zimie wariancja residuów jest większa niż w lecie. Zatem założenie o stałej wariancji nie możemy uznać za spełnione. W takiej sytuacji należałoby się zastanowić nad użyciem transformacji Boxa-Coxa w celu stabilizacji wariancji.
 
 \begin{figure}[H]
 		\centering
 		\includegraphics[width=\columnwidth]{images/acf_res.pdf}
-		\caption{Wykresy ACF i PACF dla wartości resztowych}
+		\caption{Wykresy ACF i PACF dla wartości resztowych.}
     \label{acf_rest_data}
 \end{figure}
 
-Na podstawie wykresów \ref{acf_rest_data} autokowariancji oraz autokorelacji cząstkowej możemy stwierdzić, że są one niezależne od siebie, ponieważ residua oscylują wokół 0. 
+Następnie analizie poddaliśmy niezależność. Na podstawie wykresów autokorelacji oraz autokorelacji cząstkowej (wykres \ref{acf_rest_data}) możemy wnioskować, że są one niezależne od siebie, ponieważ residua oscylują blisko wokół 0 dla każdego $h \neq 0$.
 
-
-Następnie analizie poddaliśmy normalność:
-
+|       Dodatkowo możemy sprawdzić, czy wartości resztowe mają rozkłąd normalny. W tym celu porównujemy histogram z residuów z gęstością teoretyczną rozkładu $\mathcal{N}(0, 16.5)$ oraz dystrybuantę empiryczną z dystrybuantą teoretyczną wspomnianego rozkładu.
 
 \begin{figure}[H]
 		\centering
 		\includegraphics[width=\columnwidth]{images/des_res.pdf}
-		\caption{Wykres gęstości residów}
+		\caption{Porównanie histogramu z wartości resztowych z gęstością teoretyczną rozkładu $\mathcal{N}(0, 16.5)$.}
     \label{den_data}
 \end{figure}
 
 \begin{figure}[H]
 		\centering
 		\includegraphics[width=\columnwidth]{images/dys_res.pdf}
-		\caption{Wykres dystybuanty empirycznej i teoretycznej}
+		\caption{Porównanie dystybuanty empirycznej z wartości resztowych i dystrybuanty teoretycznej rozkładu $\mathcal{N}(0, 16.5)$.}
     \label{dys_data}
 \end{figure}
 
-Na podstawie wykresów \ref{den_data}, \ref{dys_data} widzimy, że residua mają rozkład normlany. Sprawdziliśmy to również wykonując Test Kołmogorowa-Smirnowa na poziome istności $\alpha=0.05$. Otrzymana $p$-wartość wynosi 0.2905, co umożliwa nam przyjąć tezę o normalnym rozkładzie residów.
+Na podstawie wykresów \ref{den_data} i \ref{dys_data} wnioskujemy, że residua najprawdopodobniej mają rozkład normalny, ponieważ dystrybuanty wyraźnie się pokrywają, z kolei kształt histogramu przypomina gęstość teoretyczną. W celu weryfikacji hipotezy dotyczącej rozkładu, wykonaliśmy test Kołmogorowa-Smirnowa. Otrzymana $p$-wartość wynosi 0.2905, co nie daje nam powodów do odrzucenia hipotezy.
 
 \section{Podsumowanie}
 
