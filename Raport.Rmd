@@ -63,7 +63,7 @@ Na wykresie \ref{diff_temp} zobaczyć można, że szereg $\{\tilde{X}_t\}$ oscyl
 
 \begin{figure}[H]
 		\centering
-		\includegraphics[width=350pt]{images/diff_temp.pdf}
+		\includegraphics[width=\columnwidth]{images/diff_temp.pdf}
 		\caption{Dane po zastosowaniu metody różnicowania.}
     \label{diff_temp}
 \end{figure}
