@@ -19,25 +19,21 @@ fontsize: 12pt
 
 
 
-\section{Wstęp}
+\section{Wstęp i opis danych}
 
-|       Celem niniejszej pracy jest wykorzystanie modelu ARMA do zbadania danych opisujących średnią dobową temperaturę w Warszawie. Skorzystaliśmy z danych\footnote{https://academic.udayton.edu/kissock/http/Weather/default.htm} pochodzących z amerykańskiego National Climatic Data Center. Strona zawiera średnie dobowe temperatury dla 324 miast na świecie. Dane są aktualizowane na bieżąco od 1 stycznia 1995 r. do chwili obecnej. Temperatura jest mierzona w stopniach Fahrenheita. Dane pogodowe dla miasta Warszawy znadują się na wykresie \ref{fig:danePogodowe}.
+|       Celem niniejszej pracy jest wykorzystanie modelu ARMA do zbadania danych opisujących średnią dobową temperaturę w Warszawie. Skorzystaliśmy z danych\footnote{https://academic.udayton.edu/kissock/http/Weather/default.htm} pochodzących z amerykańskiego National Climatic Data Center. Strona zawiera średnie dobowe temperatury dla 324 miast na świecie. Dane są aktualizowane na bieżąco od 1 stycznia 1995 r. do chwili obecnej. Temperatura jest mierzona w stopniach Fahrenheita. Dane pogodowe dla miasta Warszawa znadują się na wykresie \ref{fig:danePogodowe}.
 
 \begin{figure}[H]
-  \includegraphics{images/raw_data.pdf}
+  \includegraphics{images/raw_data.png}
     \caption{Średnia dobowa temperatura w latch 1995-2020 w mieście Warszawa.}
   \centering
   \label{fig:danePogodowe}
 \end{figure}
 
-
-
-\section{Opis danych}
-
 |       Autorzy danych ustanowili konwencję, aby dla brakująych danych przypisać wartość -99 stopni Fahrenheita. Ze względu na duży rozmiar danych oraz występowanie brakujących wartości, do analizy postanowiliśmy wybrać przedział czasowy \mbox{22.06.2002 -- 27.08.2007}, w którym nie występują żadne braki.  Wykres temperatur dla miasta Warszawa w tym okresie widoczny jest poniżej.
 
 \begin{figure}[H]
-  \includegraphics{images/range_data.pdf}
+  \includegraphics{images/range_data.png}
   \caption{Średnia dobowa temperatura w latch 2002-2007 w mieście Warszawa.}
   \centering
   \label{fig:daneZakres}
@@ -50,7 +46,7 @@ fontsize: 12pt
 
 \begin{figure}[H]
 		\centering
-		\includegraphics[width=\columnwidth]{images/raw_acf.pdf}
+		\includegraphics[width=\columnwidth]{images/raw_acf.png}
 		\caption{Wykresy funkcji autokorelacji (ACF) i autokorelacji cząstkowej (PACF) dla surowych danych w zależności od przesunięcia $h$.}
     \label{raw_acf}
 \end{figure}
@@ -63,7 +59,7 @@ Na wykresie \ref{diff_temp} zobaczyć można, że szereg $\{\tilde{X}_t\}$ oscyl
 
 \begin{figure}[H]
 		\centering
-		\includegraphics[width=\columnwidth]{images/diff_temp.pdf}
+		\includegraphics[width=\columnwidth]{images/diff_temp.png}
 		\caption{Dane po zastosowaniu metody różnicowania.}
     \label{diff_temp}
 \end{figure}
@@ -72,8 +68,8 @@ Dodatkowo wykresy ACF i PACF (wykres \ref{diff_acf}) nie dają podstaw, by przyp
 
 \begin{figure}[H]
 		\centering
-		\includegraphics[width=\columnwidth]{images/diff_acf.pdf}
-		\caption{Wykresy funkcji autokorelacji (ACF) i autokorelacji cząstkowej (PACF) dla danych po zastosowaniu metody różnicowania w zależności od przesunięcia $h$.}
+		\includegraphics[width=\columnwidth]{images/diff_acf.png}
+		\caption{Wykresy funkcji autokorelacji (ACF) i autokorelacji cząstkowej (PACF) dla danych po zastosowaniu metody różnicowania, w zależności od przesunięcia $h$.}
     \label{diff_acf}
 \end{figure}
 
@@ -116,7 +112,7 @@ Aby wyestymować współczynniki $\varphi_{1, 2, 3}$ i $\theta_{1, 2, 3, 4}$ ora
 
 \begin{figure}[H]
 		\centering
-		\includegraphics[width=\columnwidth]{images/conf_intervals.pdf}
+		\includegraphics[width=\columnwidth]{images/conf_intervals.png}
 		\caption{Wykresy ACF i PACF dla szeregu $\tilde{X}_t$ wraz z przedziałami ufności na poziomie ufności $1 - \alpha = 0.95$.}
     \label{fig:conf_intervals}
 \end{figure}
@@ -133,14 +129,14 @@ Jak możemy zauważyć na wykresie \ref{fig:conf_intervals}, wartości ACF i PAC
 |       Aby zweryfikować, czy dobrany model ARMA jest w pełni poprawny, musimy jeszcze sprawdzić, czy dane spełniają wszystkie założenia modelu. Mianowicie sprawdzimy, czy residua (realizacje zmiennych losowych $\{Z_t\}$) spełniają założenia dotyczące białego szumu:
 
 \begin{itemize}
-  \item stała średnia równa 0
-  \item stała i ograniczona wariancja
-  \item niezależność
+  \item stała średnia równa 0,
+  \item stała i ograniczona wariancja,
+  \item niezależność.
 \end{itemize}
 
 \begin{figure}[H]
 		\centering
-		\includegraphics[width=\columnwidth]{images/res_data.pdf}
+		\includegraphics[width=\columnwidth]{images/res_data.png}
 		\caption{Wykres wartości resztowych (residuów).}
     \label{rest_data}
 \end{figure}
@@ -153,16 +149,16 @@ gdzie $\{z_i\}$ oznaczają residua, a $h$ jest długością przedziału, z jakie
 
 \begin{figure}[H]
 		\centering
-		\includegraphics[width=\columnwidth]{images/var_res_data.pdf}
+		\includegraphics[width=\columnwidth]{images/var_res_data.png}
 		\caption{Wykres wariancji cząstkowej dla $h=200$.}
     \label{var_rest_data}
 \end{figure}
 
-Na wykresie \ref{var_rest_data} wyraźnie dostrzegalne jest okresowe zachowanie wariancji. Co więcej, zachowanie to przypomina okresowość pierwotnych danych. Porównując wykresy \ref{fig:daneZakres} i \ref{var_rest_data} dostrzegamy, że w zimie wariancja residuów jest większa niż w lecie. Zatem założenie o stałej wariancji nie możemy uznać za spełnione. W takiej sytuacji należałoby się zastanowić nad użyciem transformacji Boxa-Coxa w celu stabilizacji wariancji.
+Na wykresie \ref{var_rest_data} wyraźnie dostrzegalne jest okresowe zachowanie wariancji. Co więcej, zachowanie to przypomina okresowość pierwotnych danych. Porównując wykresy \ref{fig:daneZakres} i \ref{var_rest_data} dostrzegamy, że w zimie wariancja residuów jest większa niż w lecie. Zatem założenie o stałej wariancji nie można uznać za spełnione. W takiej sytuacji należałoby się zastanowić nad użyciem transformacji Boxa-Coxa w celu stabilizacji wariancji.
 
 \begin{figure}[H]
 		\centering
-		\includegraphics[width=\columnwidth]{images/acf_res.pdf}
+		\includegraphics[width=\columnwidth]{images/acf_res.png}
 		\caption{Wykresy ACF i PACF dla wartości resztowych.}
     \label{acf_rest_data}
 \end{figure}
@@ -173,14 +169,14 @@ Następnie analizie poddaliśmy niezależność. Na podstawie wykresów autokore
 
 \begin{figure}[H]
 		\centering
-		\includegraphics[width=\columnwidth]{images/des_res.pdf}
+		\includegraphics[width=\columnwidth]{images/des_res.png}
 		\caption{Porównanie histogramu z wartości resztowych z gęstością teoretyczną rozkładu $\mathcal{N}(0, 16.5)$.}
     \label{den_data}
 \end{figure}
 
 \begin{figure}[H]
 		\centering
-		\includegraphics[width=\columnwidth]{images/dys_res.pdf}
+		\includegraphics[width=\columnwidth]{images/dys_res.png}
 		\caption{Porównanie dystybuanty empirycznej z wartości resztowych i dystrybuanty teoretycznej rozkładu $\mathcal{N}(0, 16.5)$.}
     \label{dys_data}
 \end{figure}
